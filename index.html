@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil Pessoal Interativo</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="perfil">
+    <h2>José Vítor Pinto</h2>
+
+    <button  onclick="alterarCorFundo()">Mudar Cor de Fundo</button>
+    <button  onclick="toggleDescricao()">Mostrar/Esconder Descrição</button>
+
+    <p id="descricao">Estou testando a descrição.</p>
+
+    <h3>Minhas Habilidades:</h3>
+    <ul id="listaHabilidades">
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
+    
+    <input type="text" id="novaHabilidade" placeholder="Digite nova habilidade">
+    <button class="btn" onclick="adicionarHabilidade()">Adicionar Habilidade</button>
+    <button class="btn" onclick="removerHabilidade()">Remover Habilidade</button>
+  </div>
+
+  <script>
+    const cores = ['green', 'orange', 'red', 'blue'];
+    let corAtual = 0;
+
+    function alterarCorFundo() {
+      corAtual = (corAtual + 1) % cores.length;
+      document.body.style.backgroundColor = cores[corAtual];
+    }
+
+    function toggleDescricao() {
+      const descricao = document.getElementById('descricao');
+      descricao.style.display = descricao.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function adicionarHabilidade() {
+      const input = document.getElementById('novaHabilidade');
+      const novaSkill = input.value.trim();
+      if (novaSkill !== '') {
+        const li = document.createElement('li');
+        li.textContent = novaSkill;
+        document.getElementById('listaHabilidades').appendChild(li);
+        input.value = '';
+      }
+    }
+
+    function removerHabilidade() {
+      const input = document.getElementById('novaHabilidade');
+      const skillToRemove = input.value.trim().toLowerCase();
+      const lista = document.getElementById('listaHabilidades').getElementsByTagName('li');
+      for (let i = 0; i < lista.length; i++) {
+        if (lista[i].textContent.toLowerCase() === skillToRemove) {
+          lista[i].remove();
+          input.value = '';
+          break;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
